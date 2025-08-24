@@ -1,0 +1,36 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "PayloadCMS backend for CMS website assignment",
+  "main": "src/server.ts",
+  "scripts": {
+    "dev": "nodemon src/server.ts",
+    "build": "payload build && tsc",
+    "start": "node dist/server.js",
+    "serve": "payload serve",
+    "generate:types": "payload generate:types",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["payloadcms", "cms", "typescript", "mongodb"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@payloadcms/bundler-webpack": "^1.0.7",
+    "@payloadcms/db-mongodb": "^1.7.2",
+    "@payloadcms/richtext-slate": "^1.5.2",
+    "@types/cors": "^2.8.19",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^4.18.2",
+    "mongodb-memory-server": "^10.2.0",
+    "mongoose": "^8.17.2",
+    "payload": "^2.27.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.3.0",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  }
+}
