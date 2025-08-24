@@ -2,10 +2,13 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "PayloadCMS backend for CMS website assignment",
-  "main": "src/server.ts",
+  "main": "dist/server.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "dev": "nodemon src/server.ts",
-    "build": "payload build && tsc",
+    "build": "tsc",
     "start": "node dist/server.js",
     "serve": "payload serve",
     "generate:types": "payload generate:types",

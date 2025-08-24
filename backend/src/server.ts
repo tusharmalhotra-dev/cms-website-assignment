@@ -20,7 +20,9 @@ process.on('uncaughtException', (error) => {
 
 // Add CORS middleware for frontend communication
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3001'], // Next.js frontend + admin
+  origin: process.env.NODE_ENV === 'production' 
+    ? [process.env.FRONTEND_URL] 
+    : ['http://localhost:3000', 'http://localhost:3001'], // Next.js frontend + admin
   credentials: true,
 }))
 
@@ -40,14 +42,20 @@ app.get('/health', (_, res) => {
 
 const start = async () => {
   try {
-    // Start in-memory MongoDB
-    const mongod = await MongoMemoryServer.create()
-    const mongoUri = mongod.getUri()
-    
-    console.log(`In-memory MongoDB started at: ${mongoUri}`)
-    
-    // Set the database URI for PayloadCMS to use
-    process.env.DATABASE_URI = mongoUri
+    let mongoUri: string
+
+    if (process.env.NODE_ENV === 'production') {
+      // Use provided database URI in production
+      mongoUri = process.env.DATABASE_URI!
+      if (!mongoUri) {
+        throw new Error('DATABASE_URI is required in production')
+      }
+    } else {
+      // Use in-memory MongoDB for development
+      const mongod = await MongoMemoryServer.create()
+      mongoUri = mongod.getUri()
+      console.log(`In-memory MongoDB started at: ${mongoUri}`)
+    }
 
     // Initialize Payload
     await payload.init({
@@ -58,7 +66,7 @@ const start = async () => {
       },
     })
 
-    const PORT = process.env.PORT || 3001
+    const PORT = process.env.PORT || 3002
 
     const server = app.listen(PORT, async () => {
       payload.logger.info(`PayloadCMS Server listening on port ${PORT}`)
@@ -76,7 +84,9 @@ const start = async () => {
       console.log('SIGTERM received, shutting down gracefully')
       server.close(() => {
         console.log('Server closed')
-        mongod.stop()
+        if (process.env.NODE_ENV !== 'production') {
+          MongoMemoryServer.create().then(mongod => mongod.stop())
+        }
         process.exit(0)
       })
     })
@@ -85,7 +95,9 @@ const start = async () => {
       console.log('SIGINT received, shutting down gracefully')
       server.close(() => {
         console.log('Server closed')
-        mongod.stop()
+        if (process.env.NODE_ENV !== 'production') {
+          MongoMemoryServer.create().then(mongod => mongod.stop())
+        }
         process.exit(0)
       })
     })
