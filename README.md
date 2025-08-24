@@ -2,22 +2,6 @@
 
 A modern website built with PayloadCMS and Next.js 14, demonstrating professional development practices with a headless CMS architecture.
 
-## Live Demo
-
-**[View Live Demo](https://your-frontend-demo.vercel.app)**  
-**[Admin Panel](https://your-backend-demo.railway.app/admin)**
-
-Demo Credentials:
-- Email: demo@techflow.com  
-- Password: DemoUser2024!
-
-### Features to Try:
-- Dynamic content blocks with modular page builder
-- Language switching between English and Spanish
-- Working contact form with validation
-- Admin interface for content management
-- Responsive design across all devices
-
 ## Project Overview
 
 Full-stack application featuring:
