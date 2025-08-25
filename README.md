@@ -262,6 +262,6 @@ Ready for deployment to:
 
 ## Documentation
 
-- [PayloadCMS Documentation](https://payloadcms.com/docs)
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Tailwind CSS Reference](https://tailwindcss.com/docs)
+-  [PayloadCMS Documentation](https://payloadcms.com/docs)
+-  [Next.js Documentation](https://nextjs.org/docs)
+-  [Tailwind CSS Reference](https://tailwindcss.com/docs)
